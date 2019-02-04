@@ -1,3 +1,11 @@
+%% ELEC 4700 Monte-Carlo Modeling of Electron Transport
+
+%% Part 2: Collisions with Mean Free Path (MFP) 
+%  The puepose of this code is to model the electrons in the silicon as particles 
+%  with the effective mass above using a simplistic Monte-Carlo model.
+%In Part 2 I added in scattering 
+
+
 %Author: Richard Finney 100967048
 clear all;
 close all;
@@ -14,7 +22,7 @@ mn = 0.26*m_0;                    % effective mass of electrons
 
 %variables
 
-numofelec = 10;             %current numbers of electrons t be simulated
+numofelec = 25;             %current numbers of electrons t be simulated
 T = 300;                      %temperature in kelvin
 
 dt = 1;
@@ -57,7 +65,7 @@ title('y axis component of v thermal');
     pscatvector = ones(1,numofelec)*pscat;
     
     %wil be used to make electrons different colors
-    colorarray= rand(1,numofelec)
+    colorarray= rand(1,numofelec);
 for time= 1:dt:1000
 
     random = rand(1,numofelec);
@@ -146,7 +154,7 @@ for time= 1:dt:1000
     figure(4)
     plot(time,T_avg,'.b')
     title(['The Average Temperature is ', num2str(T_avg)]);
-    axis([0 500 0 500])
+    axis([0 1000 0 500])
     hold on
     
     %average thermal velocity

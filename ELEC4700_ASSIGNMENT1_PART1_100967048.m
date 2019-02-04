@@ -1,5 +1,12 @@
 %Author: Richard Finney 100967048
-clear all;
+
+%%ELEC 4700 Monte-Carlo Modeling of Electron Transport
+%% Part 1
+
+%  The puepose of this code is to model the electrons in the silicon as particles 
+%  with the effective mass above using a simplistic Monte-Carlo model.
+
+
 close all;
 
 %Constants 
@@ -15,13 +22,13 @@ mn = 0.26*m_0;                    % effective mass of electrons
 %variables
 
 numofelec = 100;             %current numbers of electrons t be simulated
-T = 300;                    %temperature in kelvin
+T = 300;                     %temperature in kelvin
 
 dt = 1;
-%Assign each particle with the fixed velocity given by vth but give each one a
-%random direction.
 
+%the calculation of vth
 vth = sqrt((kB*T)/mn);
+
 %Spatial Boundaries
 
 Length = 200;
@@ -44,9 +51,9 @@ v_y = zeros(1, numofelec);
 v_x = vth*cos(angles);
 v_y = vth*sin(angles);
 
-colorarray= rand(1,numofelec)
+colorarray= rand(1,numofelec);
 for time= 1:dt:1000
-previous = [x',y']
+previous = [x',y'];
     dx = v_x*dt*1e-15;
     dy = v_y*dt*1e-15;
     
@@ -64,8 +71,8 @@ previous = [x',y']
     v_y = temphigher.*v_y;
     
      %if y is less than 100
-    temp2 = y>=0
-    temp3 = y<0
+    temp2 = y>=0;
+    temp3 = y<0;
     
     temp3 = temp3*(-1);
     templower = temp3 + temp2;
@@ -93,21 +100,25 @@ previous = [x',y']
     
     mfp = (10^-12)*(v_avg);
     
-    
+   %This is the 2D plot of particle trajectories
     figure(3)
     scatter(x,y,3,colorarray);
     axis([0 200*10^-9 0 100*10^-9])
     title(['The mean free path is ', num2str(mfp)]);
-   % pause(0.000000000000000000000000000000000000000001)
     hold on
-    
+  
+    %This is the average temperature plot
     figure(4)
     plot(time,T_avg,'.b')
     title(['The Average Temperature is ', num2str(T_avg)]);
-    axis([0 500 0 500])
+    axis([0 1000 0 500])
     hold on
     
-    end
+end
+%1) The thermal velocity is 1.334e+05
+%2) The mean free path is displayed in the title of figure 3
+
+
 
     
     

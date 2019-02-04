@@ -1,4 +1,15 @@
 %Author: Richard Finney 100967048
+
+%%ELEC 4700 Monte-Carlo Modeling of Electron Transport
+%% Part 3
+
+%  The puepose of this code is to model the electrons in the silicon as particles 
+%  with the effective mass above using a simplistic Monte-Carlo model. 
+%  now has scattering and rectangle boundaries. Forgot to answer this in
+%part 2 but the MFP and temperature changes because of the scattering
+%but settles. Also has density plot and temperature map
+
+%Author: Richard Finney 100967048
 clear all;
 close all;
 
@@ -14,7 +25,7 @@ mn = 0.26*m_0;                    % effective mass of electrons
 
 %variables
 
-numofelec = 100;             %current numbers of electrons t be simulated
+numofelec = 10;             %current numbers of electrons t be simulated
 T = 300;                      %temperature in kelvin
 
 dt = 1;
@@ -129,7 +140,7 @@ for time= 1:dt:1000
     rb0 = rb1 == 0;
     rb1 = -1 * rb1;
     
-    f = rb1 + rb0
+    f = rb1 + rb0;
     
     v_x = v_x .* f;
     
@@ -206,7 +217,7 @@ for time= 1:dt:1000
     figure(4)
     plot(time,T_avg,'.b')
     title(['The Average Temperature is ', num2str(T_avg)]);
-    axis([0 500 0 500])
+    axis([0 1000 0 500])
     hold on
     
     [X,Y] = meshgrid (x' , y');
@@ -225,10 +236,9 @@ for time= 1:dt:1000
 end
 
 %Density plot
-
-
-elecpos = [xprime,yprime];
+elecpos = [x',y'];
 Density = hist3(elecpos, 'Nbins',[20,10]);
 figure(5)
 surf(Density)
 shading interp
+
